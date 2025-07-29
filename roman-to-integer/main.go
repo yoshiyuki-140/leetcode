@@ -43,81 +43,18 @@ import (
 */
 
 func romanToInt(s string) int {
+	symbols := map[string]int{"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1}
 	result := 0
-	array := strings.Split(s, "")
-	length := len(array)
-	c := ""
-	for i := 0; i < length; {
-		if length-i >= 2 {
-			c = array[i] + array[i+1]
-			switch c {
-			case "CM":
-				result += 900
-				i += 2
-				continue
-			case "CD":
-				result += 400
-				i += 2
-				continue
-			case "XC":
-				result += 90
-				i += 2
-				continue
-			case "XL":
-				result += 40
-				i += 2
-				continue
-			case "IX":
-				result += 9
-				i += 2
-				continue
-			case "IV":
-				result += 4
-				i += 2
-				continue
-			default:
-				c = array[i]
-				i++
-				switch c {
-				case "M":
-					result += 1000
-				case "D":
-					result += 500
-				case "C":
-					result += 100
-				case "L":
-					result += 50
-				case "X":
-					result += 10
-				case "V":
-					result += 5
-				case "I":
-					result += 1
-				}
-
-			}
-		} else { // when length == 1
-			c = array[i]
-			i++
-			switch c {
-			case "M":
-				result += 1000
-			case "D":
-				result += 500
-			case "C":
-				result += 100
-			case "L":
-				result += 50
-			case "X":
-				result += 10
-			case "V":
-				result += 5
-			case "I":
-				result += 1
-			}
+	S := strings.Split(s, "")
+	l := len(S)
+	for i := 0; i < l-1; i++ {
+		if symbols[S[i]] < symbols[S[i+1]] {
+			result -= symbols[S[i]]
+		} else {
+			result += symbols[S[i]]
 		}
 	}
-	return result
+	return result + symbols[S[l-1]]
 }
 
 func main() {
