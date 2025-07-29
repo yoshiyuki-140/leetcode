@@ -2,24 +2,28 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
 )
 
 func isPalindrome(x int) bool {
-	s := strconv.Itoa(x)
-	array := strings.Split(s, "")
-	length := len(s)
-	for i := 0; i < length/2; i++ {
-		if array[i] != array[length-i-1] {
-			return false
-		}
+	if x == 0 {
+		return true
 	}
-	return true
+
+	if x < 0 || x%10 == 0 {
+		return false
+	}
+	reversedHalf := 0
+	for x > reversedHalf {
+		// append the end of 'x' to the end of 'reversedHalf'
+		reversedHalf = reversedHalf*10 + x%10
+		// remove the end of 'x'
+		x /= 10
+	}
+	return ((x == reversedHalf) || (x == reversedHalf/10))
 }
 
 func main() {
-	x := 1211
+	x := 121
 	result := isPalindrome(x)
 	fmt.Println(result)
 }
