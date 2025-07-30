@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 func longestCommonPrefix(strs []string) string {
@@ -10,22 +9,14 @@ func longestCommonPrefix(strs []string) string {
 		return ""
 	}
 	result := ""
-	baseList := strings.Split(strs[0], "") // 先頭文字列基準にしてからそれを一文字ずつのスライスに変換する
 label:
-	// base	には一文字ずつstrs[0]を分割した文字列が入る
-	for i, base := range baseList {
-		// 以下のループをすべて抜けたら `result += base` できる
+	for i := 0; i < len(strs[0]); i++ {
 		for j := 1; j < len(strs); j++ {
-			str := strings.Split(strs[j], "")
-			if len(str) <= i { // strの中の文字にアクセスできるかチェック
-				break label
-			}
-			// 以下がメインとなる条件式で、すべてfalseの場合はresult += base
-			if string(str[i]) != base {
+			if len(strs[j]) <= i || strs[j][i] != strs[0][i] {
 				break label
 			}
 		}
-		result += base
+		result += string(strs[0][i])
 	}
 	return result
 }
