@@ -33,7 +33,7 @@ func isValid(s string) bool {
 	}
 	sList := strings.Split(s, "")
 	stack := Stack{}
-	// 括弧数チェック
+	// 括弧チェック
 	for _, str := range sList {
 		switch str {
 		case "(", "{", "[":
