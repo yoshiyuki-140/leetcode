@@ -1,4 +1,4 @@
-package pascalsTriangle
+package pascalstriangle
 
 import (
 	"reflect"

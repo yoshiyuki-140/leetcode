@@ -1,4 +1,4 @@
-package pascalsTriangle
+package pascalstriangle
 
 /*
 	constraint(制約)

@@ -1,4 +1,4 @@
-package validParentheses
+package validparentheses
 
 func isValid(s string) bool {
 	if len(s)%2 == 1 {
