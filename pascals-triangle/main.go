@@ -10,8 +10,11 @@ func generate(numRows int) [][]int {
 		1. numRowsが1であれば、[[1]]を返却する
 		1. numRowsが2であれば、[[1],[1,1]]を返却する
 		1. numRows >= 3の時、resultArray:[][]intに[[1],[1,1]]を格納する.
-		1. for文でnumRows-2分ループをかける -> i:index の初期値は2
-			1. ひとつ前の配列からループをかける
+		1. for文でnumRows分ループをかける -> i:index の初期値は2
+			1. パスカルの三角形でいうと一つ上の段の配列から値を読みだして和をとる
+			1. j番目の格納先に和の結果を格納する
+			1. appendArrayができたらresultArrayにappendする
+		1. resultArrayを返す
 	*/
 	if numRows == 1 {
 		return [][]int{{1}}
