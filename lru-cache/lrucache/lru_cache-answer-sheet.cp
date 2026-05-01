@@ -4,7 +4,6 @@ type LRUCache struct {
 }
 
 func Constructor(capacity int) LRUCache {
-
 	return LRUCache{}
 }
 
