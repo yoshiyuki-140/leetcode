@@ -52,12 +52,12 @@ type List struct {
 ```go
 func (l *List) MoveToFront(node *Node) {
 	// すでに先頭なら何もしない
-    if node == l.Head { return }
+    if node == this.Head { return }
 
 	// もし末尾なら
-    if node == l.Tail {          
+    if node == this.Tail {          
 		// 一つ前のノードを新しい末尾にする
-        l.Tail = node.Prev
+        this.Tail = node.Prev
     }
 
     // --- 抜き取り作業 ---
@@ -73,11 +73,11 @@ func (l *List) MoveToFront(node *Node) {
 	// 自分を先頭にするので「前」はなし
     node.Prev = nil
 	// 今の先頭を自分の「次」にする
-    node.Next = l.Head
+    node.Next = this.Head
 	// 今の先頭の「前」を自分にする
-    l.Head.Prev = node
+    this.Head.Prev = node
 	// リスト自体の先頭を自分に更新する
-    l.Head = node
+    this.Head = node
 }
 ```
 
@@ -85,17 +85,17 @@ func (l *List) MoveToFront(node *Node) {
 ```go
 func (l *List) PushToFront(node *Node) {
 	// リストが空なら
-    if l.Head == nil {
+    if this.Head == nil {
 		// 先頭も末尾も自分
-        l.Head, l.Tail = node, node
+        this.Head, this.Tail = node, node
         return
     }
 	// 自分の「次」を今の先頭に
-    node.Next = l.Head
+    node.Next = this.Head
 	// 今の先頭の「前」を自分に
-    l.Head.Prev = node
+    this.Head.Prev = node
 	// リストの先頭を自分に更新
-    l.Head = node
+    this.Head = node
 }
 ```
 
@@ -103,20 +103,20 @@ func (l *List) PushToFront(node *Node) {
 ```go
 func (l *List) DelLastNode() *Node {
 	// 削除するノードを記憶（戻り値にするため）
-    tail := l.Tail
+    tail := this.Tail
 	// 要素が一つしかなければ
-    if l.Head == l.Tail {
+    if this.Head == this.Tail {
 		// 両方空にする
-        l.Head, l.Tail = nil, nil
+        this.Head, this.Tail = nil, nil
         return tail
     }
 
 	// 末尾の一個前の「次」を空にする
-    l.Tail.Prev.Next = nil
+    this.Taithis.Prev.Next = nil
 	// リストの末尾を一つ前にずらす
-    l.Tail = l.Tail.Prev
+    this.Tail = this.Taithis.Prev
 	// 切り離したノードのリンクを消す
-    tail.Prev = nil
+    taithis.Prev = nil
     return tail
 }
 ```
@@ -139,12 +139,12 @@ type LRUCache struct {
 #### Get（データの取得）
 ```go
 func (l *LRUCache) Get(key int) int {
-    node, ok := l.keyAddr[key]
+    node, ok := this.keyAddr[key]
 	// マップになければ -1
     if !ok { return -1 }
 
 	// 使ったので「最新（先頭）」へ移動
-    l.list.MoveToFront(node)
+    this.list.MoveToFront(node)
     return node.Val
 }
 ```
@@ -152,30 +152,30 @@ func (l *LRUCache) Get(key int) int {
 #### Put（データの保存・更新）
 ```go
 func (l *LRUCache) Put(key int, value int) {
-    node, ok := l.keyAddr[key]
+    node, ok := this.keyAddr[key]
 	// すでにキーがある場合
     if ok {
 		// 値を書き換えて
         node.Val = value
 		// 最新へ移動
-        l.list.MoveToFront(node)
+        this.list.MoveToFront(node)
         return
     }
 
 	// 容量オーバーなら
-    if len(l.keyAddr) >= l.capacity {
+    if len(this.keyAddr) >= this.capacity {
 		// 一番古い（末尾）を消す
-        node := l.list.DelLastNode()
+        node := this.list.DelLastNode()
 		// マップからも消す
-        delete(l.keyAddr, node.Key)
+        delete(this.keyAddr, node.Key)
     }
 
     // 新規作成
     node = &Node{Key: key, Val: value}
 	// マップに登録
-    l.keyAddr[node.Key] = node
+    this.keyAddr[node.Key] = node
 	// 先頭に追加
-    l.list.PushToFront(node)
+    this.list.PushToFront(node)
 }
 ```
 
@@ -205,12 +205,12 @@ type List struct {
 }
 
 func (l *List) MoveToFront(node *Node) {
-	if node == l.Head {
+	if node == this.Head {
 		return
 	}
 
-	if node == l.Tail {
-		l.Tail = node.Prev
+	if node == this.Tail {
+		this.Tail = node.Prev
 	}
 
 	node.Prev.Next = node.Next
@@ -219,31 +219,31 @@ func (l *List) MoveToFront(node *Node) {
 	}
 
 	node.Prev = nil
-	node.Next = l.Head
-	l.Head.Prev = node
-	l.Head = node
+	node.Next = this.Head
+	this.Head.Prev = node
+	this.Head = node
 }
 
 func (l *List) PushToFront(node *Node) {
-	if l.Head == nil {
-		l.Head, l.Tail = node, node
+	if this.Head == nil {
+		this.Head, this.Tail = node, node
 		return
 	}
-	node.Next = l.Head
-	l.Head.Prev = node
-	l.Head = node
+	node.Next = this.Head
+	this.Head.Prev = node
+	this.Head = node
 }
 
 func (l *List) DelLastNode() *Node {
-	tail := l.Tail
-	if l.Head == l.Tail {
-		l.Head, l.Tail = nil, nil
+	tail := this.Tail
+	if this.Head == this.Tail {
+		this.Head, this.Tail = nil, nil
 		return tail
 	}
 
-	l.Tail.Prev.Next = nil
-	l.Tail = l.Tail.Prev
-	tail.Prev = nil
+	this.Taithis.Prev.Next = nil
+	this.Tail = this.Taithis.Prev
+	taithis.Prev = nil
 	return tail
 }
 
@@ -258,31 +258,31 @@ func Constructor(capacity int) LRUCache {
 }
 
 func (l *LRUCache) Get(key int) int {
-	node, ok := l.keyAddr[key]
+	node, ok := this.keyAddr[key]
 	if !ok {
 		return -1
 	}
 
-	l.list.MoveToFront(node)
+	this.list.MoveToFront(node)
 	return node.Val
 }
 
 func (l *LRUCache) Put(key int, value int) {
-	node, ok := l.keyAddr[key]
+	node, ok := this.keyAddr[key]
 	if ok {
 		node.Val = value
-		l.list.MoveToFront(node)
+		this.list.MoveToFront(node)
 		return
 	}
 
-	if len(l.keyAddr) >= l.capacity {
-		node := l.list.DelLastNode()
-		delete(l.keyAddr, node.Key)
+	if len(this.keyAddr) >= this.capacity {
+		node := this.list.DelLastNode()
+		delete(this.keyAddr, node.Key)
 	}
 
 	node = &Node{Key: key, Val: value}
-	l.keyAddr[node.Key] = node
-	l.list.PushToFront(node)
+	this.keyAddr[node.Key] = node
+	this.list.PushToFront(node)
 }
 
 /**
