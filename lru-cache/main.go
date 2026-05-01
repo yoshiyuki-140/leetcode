@@ -22,7 +22,7 @@ func main() {
 		switch scenarioVerb[i] {
 
 		case "LRUCache":
-			lruCache = lrucache.NewLRUCache(scenarioVal[i][0])
+			lruCache = lrucache.Constructor(scenarioVal[i][0])
 
 		case "put":
 			lruCache.Put(scenarioVal[i][0], scenarioVal[i][1])
