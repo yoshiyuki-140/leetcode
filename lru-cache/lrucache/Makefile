@@ -1,2 +1,2 @@
 init:
-	cp ru_cache-answer-sheet.cp lru_cache.go
+	cp lru_cache-answer-sheet.cp lru_cache.go
