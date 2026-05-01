@@ -71,6 +71,10 @@ type LRUCache struct {
 	list     List          // 使用頻度順に並んだリスト
 }
 
+func NewLRUCache(capacity int) LRUCache {
+	return LRUCache{capacity: capacity, keyAddr: map[int]*Node{}, list: List{}}
+}
+
 // Get(データの取得)
 func (l *LRUCache) Get(key int) int {
 	node, ok := l.keyAddr[key]
