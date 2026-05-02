@@ -1,61 +1,35 @@
 package mergetwosortedlists
 
-import "fmt"
-
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	/*
-		1. 先頭を格納
-		# 連結リストの末尾にオブジェクトを追加するとき
-		1.
-	*/
-	tmp := &ListNode{}
-	result := tmp
-	// the one
-	if list1 == nil && list2 == nil {
-		fmt.Println("1111111111")
-		return nil
-	}
-	if list1 == nil {
-		fmt.Println("2222222222")
-		return list2
-	}
-	if list2 == nil {
-		fmt.Println("3333333333")
-		return list1
-	}
-	//
-	if list1.Val <= list2.Val {
-		fmt.Println("4444444444")
-		tmp = list1
-		list1 = list1.Next
-	} else {
-		fmt.Println("5555555555")
-		tmp = list2
-		list2 = list2.Next
-	}
-	//
+	// 返却時に先頭を特定するためdummyを作る
+	dummy := &ListNode{}
+	current := dummy
 
-	for list1.Next != nil && list2.Next != nil {
-		fmt.Println("**********")
-		// nullだったときの条件を追加
-		if list1 == nil || list2 == nil {
-			continue
-		}
+	// 値を比較して、小さいほうをcurrentに入れる処理
+	for list1 != nil && list2 != nil {
 		if list1.Val <= list2.Val {
-			tmp.Next = list1
-			list1 = list1.Next
-			fmt.Println("list1.Val <= list2.Val")
+			current.Next = list1
+			list1 = list1.Next // list1の更新
 		} else {
-			tmp.Next = list2
-			list2 = list2.Next
-			fmt.Println("list1.Val > list2.Val")
+			current.Next = list2
+			list2 = list2.Next // listの更新
 		}
-		tmp = tmp.Next
+		current = current.Next
 	}
-	return result
+
+	// どちらかの要素がnilになったらnilではない要素をそのままcurrentに結合する
+	if list1 != nil {
+		current.Next = list1
+	}
+	if list2 != nil {
+		current.Next = list2
+	}
+
+	// dummyのnextを返却する
+	return dummy.Next
 }
