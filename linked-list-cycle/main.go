@@ -11,16 +11,18 @@ func hasCycle(head *ListNode) bool {
 		return false
 	}
 
-	// メモ用
-	pointerMap := make(map[*ListNode]bool)
+	// フロイドの循環検出アルゴリズム(空間計算量がO(1)になる)
+	fast := head
+	slow := head
 
 	// 最後まで探索する
-	for head != nil {
-		if pointerMap[head] {
+	for fast != nil && fast.Next != nil {
+		// 始めはfast == slowになっていることは確実なので先に更新する
+		slow = slow.Next      // 1個進む
+		fast = fast.Next.Next // 2個進む
+		if fast == slow {
 			return true
 		}
-		pointerMap[head] = true
-		head = head.Next
 	}
 	return false
 }
