@@ -59,6 +59,20 @@ func Test_hasCycle(t *testing.T) {
 			},
 			want: false,
 		},
+		{
+			name: "[正常系] リストの長さが0の場合はfalseを返却する",
+			args: args{
+				head: nil,
+			},
+			want: false,
+		},
+		{
+			name: "[正常系] リストの長さが1の場合はtrueを返却する",
+			args: args{
+				head: &ListNode{Val: 0, Next: nil},
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
