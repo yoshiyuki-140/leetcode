@@ -1,51 +1,43 @@
 package validpalindrome
 
-// 2つのポインタを使う方法
+import "strings"
+
 func isPalindrome(s string) bool {
+	// 1. 小文字化
+	s = strings.ToLower(s)
+	// 2. twoポインタを使って比較
 	start, end := 0, len(s)-1
 
-	s = toLower(s) // 小文字化
-
-	// start == end か end < startの時に終了
+	// startがend以上になったら終了
 	for start < end {
-		if isAsciiValue(s[start]) && isAsciiValue(s[end]) { // どっちもasciiの時に比較を行う
-			// 違っていたら即falseを返却
+		startIsValud := isValidValue(s[start])
+		endIsValud := isValidValue(s[end])
+		if !startIsValud { // startがascii文字列じゃなかったらポインタを進めてスキップ
+			start++
+			continue
+		}
+		if !endIsValud { // endがascii文字列じゃなかったらポインタを進めてスキップ
+			end--
+			continue
+		}
+		if startIsValud && endIsValud { // startとendのポインタが示す値がどちらもascii文字列であれば比較を行う
+			// 比較を行って値が違えば即falseを返却
 			if s[start] != s[end] {
 				return false
 			}
-			// 進める
 			start++
 			end--
-		} else {
-			// asciiValueじゃなかったらポインタを進める
-			if isAsciiValue(s[start]) == false {
-				start++
-			}
-			if isAsciiValue(s[end]) == false {
-				end--
-			}
 		}
 	}
+	// 全てが適切であれば回文判定としてtrueを返却
 	return true
 }
 
-// 文字列に含まれるアルファベット大文字をアルファベット小文字に変換する関数
-func toLower(s string) string {
-	result := ""
-	for _, c := range s {
-		if 65 <= c && c <= 90 { // A-Z検知
-			c += 32 // 小文字化
-		}
-		result += string(c)
-	}
-	return result
-}
-
-// a-z,A-Z,0-9だったらtrueを返却する
-func isAsciiValue(byteS byte) bool {
-	if (48 <= byteS && byteS <= 57) || // 0-9検知
-		(65 <= byteS && byteS <= 90) || // A-Z検知
-		(97 <= byteS && byteS <= 122) { // a-z検知
+// A-Z, a-z, 0-9であればtrueを返却する
+func isValidValue(c byte) bool {
+	if (48 <= c && c <= 57) || // 0-0
+		(65 <= c && c <= 90) || // A-Z
+		(97 <= c && c <= 122) { // a-z
 		return true
 	}
 	return false
