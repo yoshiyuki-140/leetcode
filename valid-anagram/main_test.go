@@ -28,6 +28,14 @@ func Test_isAnagram(t *testing.T) {
 			},
 			want: false,
 		},
+		{
+			name: "[正常系] 適切に検出",
+			args: args{
+				s: "ggii",
+				t: "eekk",
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
