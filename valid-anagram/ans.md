@@ -1,5 +1,8 @@
-package validanagram
+# 解答
 
+## 方針1：hashマップを使って計測をする
+
+```go
 func isAnagram(s string, t string) bool {
 	if len(s) != len(t) {
 		return false
@@ -10,10 +13,11 @@ func isAnagram(s string, t string) bool {
 		hashMap[s[i]]++
 		hashMap[t[i]]--
 	}
-	for _, val := range hashMap {
-		if val != 0 {
+	for _, v := range hashMap {
+		if v != 0 {
 			return false
 		}
 	}
 	return true
 }
+```
