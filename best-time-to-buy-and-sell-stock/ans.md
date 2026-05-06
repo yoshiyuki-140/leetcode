@@ -7,20 +7,17 @@
 今回の問題ではpricesが与えられるが、このpricesの場所を示すindexを二つの変数で管理する方法だ。
 
 ```go
-
 func maxProfit(prices []int) int {
-	l, r := 0, 1
+	buy, sell := 0, 1
 	maxP := 0
-	for r < len(prices) {
-		if prices[l] < prices[r] {
-			profit := prices[r] - prices[l]
-			if maxP < profit {
-				maxP = profit
-			}
+	for sell < len(prices) {
+		if prices[buy] < prices[sell] {
+			profit := prices[sell] - prices[buy]
+			maxP = max(maxP, profit)
 		} else {
-			l = r
+			buy = sell
 		}
-		r++
+		sell++
 	}
 	return maxP
 }
