@@ -5,19 +5,21 @@ func climbStairs(n int) int {
 		return n
 	}
 
-	// n-2までの通り数
-	prev2 := 1
-	// n-1までの通り数
+	// n-1段目の初期値
 	prev1 := 2
+	// n-2段目の初期値
+	prev2 := 1
 
-	// 3段目から計算開始
+	// 現在の値
+	var curr int
+
 	for i := 3; i <= n; i++ {
-		// 現在の段への通り数は、(n-1段目の通り数) + (n-2段目の通り数)
-		current := prev1 + prev2
+		// 計算
+		curr = prev1 + prev2
 
-		// 次のループに入るために値を更新
+		// 値を更新
 		prev2 = prev1
-		prev1 = current
+		prev1 = curr
 	}
-	return prev1
+	return curr
 }
