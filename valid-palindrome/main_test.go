@@ -41,3 +41,34 @@ func Test_isPalindrome(t *testing.T) {
 		})
 	}
 }
+
+/*
+func Test_isValidValue(t *testing.T) {
+	tests := []struct {
+		name string // description of this test case
+		// Named input parameters for target function.
+		c    byte
+		want bool
+	}{
+		{
+			name: "Test1",
+			c:    byte(48),
+			want: true,
+		},
+		{
+			name: "Test2",
+			c:    byte(0),
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := isValidValue(tt.c)
+			if got != tt.want {
+				t.Errorf("isValidValue() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+*/
