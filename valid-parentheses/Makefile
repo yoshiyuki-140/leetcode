@@ -1,2 +1,5 @@
+init:
+	cp main.cp main.go
+
 test:
-	go test -v -run Test_isValid/Test_1 .
+	go test -v .
