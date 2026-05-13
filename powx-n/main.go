@@ -1,30 +1,28 @@
 package powxn
 
 func myPow(x float64, n int) float64 {
-	// 負の最小値対策としてint64にキャスト
-	N := int64(n)
-
-	// nが負の場合は、xを逆数にしてnを正の数として扱う
-	if N < 0 {
+	if n == 0 {
+		return 1.0
+	}
+	// NOTE: int64への変換はしなくてもいい気がするので変換はやめておく
+	if n < 0 {
 		x = 1 / x
-		N = -N
+		n = -n
 	}
 
-	// 結果を格納する変数を定義する
 	var result float64 = 1.0
-	currentProduct := x
+	currentProduct := x // 現在の掛け算の値を計算する
 
-	// Nが0になるまでループ(ここがO(logN)回まわる)
-	for N > 0 {
-		if N%2 == 1 {
+	for n > 0 {
+		if n%2 == 1 {
 			result *= currentProduct
 		}
 
-		// currentProductを自乗して、次のビットに備える
 		currentProduct *= currentProduct
 
-		// 右に1ビットシフト
-		N /= 2
+		// 1bit右シフト
+		n >>= 1
 	}
+
 	return result
 }

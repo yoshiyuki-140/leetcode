@@ -5,57 +5,36 @@
 - 時間計算量(log(N))
 - 空間計算量O(1)
 
+アルゴリズム言語化
+
+- n回計算する代わりに、計算結果を使いまわしてショートカットをしたい
+- 指数を2進数としてとらえて、1, 2, 4, 8... と倍々になったパーツを作っていく
+- 必要なパーツだけを掛け算して、たったlogN回で答えが得られる
+
 ```go
 func myPow(x float64, n int) float64 {
-	// 負の最小値対策としてint64にキャスト
-	N := int64(n)
-	// nが負の場合は、xを逆数にしてnを正の数として扱う
-	if N < 0 {
+	if n == 0 { // x^0 == 1.0
+		return 1.0
+	}
+	if n < 0 {
 		x = 1 / x
-		N = -N
+		n = -n
 	}
 
 	var result float64 = 1.0
-	currentProduct := x
+	currentProduct := x // 現在の掛け算の値を計算する
 
-	// Nが0になるまでループ(ここがO(logN)回まわる)
-	for N > 0 {
-		// Nの最下位ビットが1(つまり奇数)の場合
-		// 今まで育ててきたcurrentProductを結果にかける
-		if N%2 == 1 {
+	for n > 0 {
+		if n%2 == 1 {
 			result *= currentProduct
 		}
 
-		// currentProductを自乗して、次のビット(x^1 -> x^2 -> x^4...)に備える
-		currentProduct *= currentProduct
+		currentProduct *= currentProduct // 自分自身を倍々にする
 
-		// Nを右に1ビットシフト (2で割るのと同義)
-		N /= 2
+		// 1bit右シフト
+		n >>= 1
 	}
+
 	return result
-}
-```
-
-## スタックオーバーフローする解
-
-```go
-func myPow(x float64, n int) float64 {
-	// 0乗は常に1
-	// nが負の数の場合、nを正の数に転換して計算する
-	if n < 0 {
-		return 1.0 / myPow(x, -(n))
-	}
-
-	// NOTE: 指数を半分にした値を1回だけ計算してキープしておく
-	half := myPow(x, n/2)
-
-	// nが偶数なら、半分にしたものを2かいかけるだけ
-	// e.g. x^10 = x^5 * x^5
-	// nが奇数なら、xが1個余るので、それも掛ける
-	if n%2 == 0 {
-		return half * half
-	} else {
-		return half * half * x
-	}
 }
 ```
