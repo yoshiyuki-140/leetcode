@@ -1,40 +1,39 @@
 package validparentheses
 
 func isValid(s string) bool {
-	// sの長さが奇数長だったらfalseを返却する
+	// 偶数長ならfalseを返却
 	if len(s)%2 == 1 {
 		return false
 	}
 
-	// pairを定義
-	pair := map[rune]rune{
+	pairs := map[rune]rune{
+		'}': '{',
 		']': '[',
 		')': '(',
-		'}': '{',
 	}
 
-	// スタックの定義
+	// スタックを初期化
 	var stack []rune
 
+	// 各文字をパースする
 	for _, c := range s {
-		// 対応する括弧を呼び出す
-		if open, ok := pair[c]; ok {
-			// 1. スタックが空ならfalse
+		// cが閉じ括弧の時
+		if open, ok := pairs[c]; ok {
+			// スタックの長さが0であれば、false
 			if len(stack) == 0 {
 				return false
 			}
-			// 2. スタックのトップが、期待される開き括弧ではないならfalse
+			// stackのtopに含まれるのがopenであった場合にはfalse
 			if stack[len(stack)-1] != open {
 				return false
 			}
-			// 正しいペアになったので、スタックを更新
+			// この時点で正しくペアになったので、stackからpop
 			stack = stack[:len(stack)-1]
 		} else {
-			// 開き括弧の場合はスタックにPush
+			// 開き括弧の時スタックにpushする
 			stack = append(stack, c)
 		}
 	}
 
-	// 最終的にスタックが空ならOK
 	return len(stack) == 0
 }
