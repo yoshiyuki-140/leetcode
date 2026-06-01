@@ -143,3 +143,44 @@ func isValidValue(c byte) bool {
 	return false
 }
 ```
+
+## 解答案3
+
+この解はあんまりよくない
+```go
+import "strings"
+
+func isPalindrome(s string) bool {
+	// 小文字化
+	s = strings.ToLower(s)
+	// ascii文字のみを残す
+	s = convertAsciiStr(s)
+	// 処理
+	lenS := len(s)
+	for i := 0; i < lenS/2; i++ {
+		if s[i] != s[lenS-i-1] {
+			return false
+		}
+	}
+	return true
+}
+
+// ascii文字のみを残す
+func convertAsciiStr(s string) string {
+	result := ""
+	for _, c := range s {
+		if isAsciiStr(c) {
+			result += string(c)
+		}
+	}
+	return result
+}
+
+// ASCII文字かどうかを判定する関数
+func isAsciiStr(s rune) bool {
+	if (48 <= s && s <= 57) || (65 <= s && s <= 90) || (97 <= s && s <= 122) {
+		return true
+	}
+	return false
+}
+```
