@@ -2,4 +2,4 @@ test:
 	go test -v ./...
 
 init:
-	cp main.cp main.go
+	cp main.copy main.go
