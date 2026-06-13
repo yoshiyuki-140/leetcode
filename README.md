@@ -4,22 +4,25 @@
 
 ## 構造
 
-- `note.go` - 簡単なコードを書くためのテンプレートファイル
-- 各問題は独自のディレクトリに配置される予定です
+```bash
+.
+├── README.md # this file
+├── cz.json # git-cz-rsの設定ファイル
+├── go.mod
+└── solutions
+    ├── Makefile
+    ├── create_solution_template.sh # 問題番号からディレクトリを作ってくれるbash script
+    ├── s1-two-sum
+    ...
+    └── s9-palindrome-number
+```
+
 
 ## 実行方法
 
 各問題のディレクトリに移動して実行:
 
 ```bash
-cd <problem-directory>
+cd ./solutions/<problem-directory>
 go run main.go
-```
-
-## 開発用
-
-`note.go`は新しいアルゴリズムを素早く試すためのファイルです:
-
-```bash
-go run note.go
 ```
